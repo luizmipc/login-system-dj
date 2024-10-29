@@ -13,6 +13,7 @@
 [Ss]cripts
 pyvenv.cfg
 venv
+db.sqlite3
 __pycache__/
 pip-selfcheck.json
 
