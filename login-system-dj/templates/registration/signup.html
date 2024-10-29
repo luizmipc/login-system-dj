@@ -1,12 +1,71 @@
 {% extends "base.html" %}
-
+{% load widget_tweaks %}
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
 <h2>Sign Up</h2>
-<form method="post">
+<form method="post" name="signup">
   {% csrf_token %}
-  {{ form.as_p }}
+  {% render_field form.username %}
+  {{ form.username.help_text }}
+  
+  {% render_field form.email %}
+  {% render_field form.description %}
+  {% render_field form.password1 %}
+  {% render_field form.password2 %}
+
   <button type="submit">Sign Up</button>
 </form>
 {% endblock %}
+
+{% comment %} <form method="post" name="signup">
+  <input type="hidden" name="csrfmiddlewaretoken" value="7WP4aIxize66klrNh6AsOBAnG4BVGp5jA6S86MdiAh0ZgWbLj3x5UvwNEiSfJ5NI">
+  <p>
+    <label for="id_username">Username:</label>
+    <input type="text" name="username" maxlength="150" autofocus="" required="" aria-describedby="id_username_helptext" id="id_username">
+    
+      <span class="helptext" id="id_username_helptext">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span>
+    
+    
+  </p>
+
+  
+  <p>
+    <label for="id_email">Email address:</label>
+    <input type="email" name="email" maxlength="254" id="id_email">
+    
+    
+  </p>
+
+  
+  <p>
+    <label for="id_description">Description:</label>
+    <input type="text" name="description" value="NotProvided" maxlength="100" required="" id="id_description">
+    
+    
+  </p>
+
+  
+  <p>
+    <label for="id_password1">Password:</label>
+    <input type="password" name="password1" autocomplete="new-password" aria-describedby="id_password1_helptext" id="id_password1">
+    
+      <span class="helptext" id="id_password1_helptext"></span></p><ul><li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul>
+    
+    
+  <p></p>
+
+  
+  <p>
+    <label for="id_password2">Password confirmation:</label>
+    <input type="password" name="password2" autocomplete="new-password" aria-describedby="id_password2_helptext" id="id_password2">
+    
+      <span class="helptext" id="id_password2_helptext">Enter the same password as before, for verification.</span>
+    
+    
+      
+    
+  </p>
+
+  <button type="submit">Sign Up</button>
+</form> {% endcomment %}
