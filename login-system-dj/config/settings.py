@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # apps
     'accounts.apps.AccountsConfig',
     'phonenumbers.apps.PhonenumbersConfig',
+    'localities.apps.LocalitiesConfig',
 
     # dependencies
     'widget_tweaks',
