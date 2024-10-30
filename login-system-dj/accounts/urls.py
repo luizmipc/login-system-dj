@@ -1,5 +1,5 @@
 from django.contrib.auth import views
-from accounts.forms.users import CustomUserLoginForm
+from .forms import CustomUserLoginForm
 
 from django.urls import path
 

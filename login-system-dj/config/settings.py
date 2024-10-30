@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # apps
     'accounts.apps.AccountsConfig',
+    'phonenumbers.apps.PhonenumbersConfig',
 
     # dependencies
     'widget_tweaks',
