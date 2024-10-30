@@ -1,0 +1,19 @@
+# Top-most EditorConfig file
+root = true
+
+# Python files
+[*.py]
+indent_style = space
+indent_size = 4
+
+# HTML files
+[*.html]
+indent_style = space
+indent_size = 2
+
+# General settings for text files
+[*.{html,py}]
+charset = utf-8
+end_of_line = lf
+trim_trailing_whitespace = true
+insert_final_newline = true

@@ -7,7 +7,7 @@ from django import forms
 
 class CustomUserLoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
-        super(CustomUserLoginForm, self).__init__(*args, **kwargs)
+      super(CustomUserLoginForm, self).__init__(*args, **kwargs)
 
     username = UsernameField(widget=forms.TextInput())
     password = forms.CharField()

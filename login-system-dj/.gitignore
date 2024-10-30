@@ -12,7 +12,7 @@
 [Ll]ocal
 [Ss]cripts
 pyvenv.cfg
-venv
+.venv
 db.sqlite3
 __pycache__/
 pip-selfcheck.json
