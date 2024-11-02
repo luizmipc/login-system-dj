@@ -26,3 +26,13 @@ class Address(models.Model):
 
     def __str__(self):
         return f"{self.street_name}, {self.street_number}, {self.city}, {self.state.name}, {self.state.country.name}"
+
+class Locality(models.Model):
+    additional_details = models.TextField(max_length=100)
+    address = models.ForeignKey(Address, related_name='localities', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.additional_details}, {self.address}"
+
+
+
