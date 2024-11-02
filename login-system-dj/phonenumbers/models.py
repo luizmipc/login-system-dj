@@ -11,23 +11,11 @@ class PhoneNumber(models.Model):
     )
     label = models.CharField(max_length=30, blank=True, null=True)
 
-    number = models.CharField(max_length=20)
+    line_number = models.CharField(max_length=20, blank=True, null=True)
 
-    country_code = models.ForeignKey(
-        'localities.Country',
-        on_delete=models.SET_NULL,
-        related_name='phone_numbers',
-        null=True,
-        blank=True
-    )
+    country_code = models.CharField(max_length=3, blank=True, null=True)
 
-    state_code = models.ForeignKey(
-        'localities.State',
-        on_delete=models.SET_NULL,
-        related_name='phone_numbers',
-        null=True,
-        blank=True
-    )
+    state_code = models.CharField(max_length=3, blank=True, null=True)
 
     def __str__(self):
         return f"{self.label or 'Phone'}: {self.number}, State: {self.state_code}, Country: {self.country_code}"
