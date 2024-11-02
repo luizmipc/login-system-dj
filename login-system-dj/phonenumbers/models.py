@@ -3,12 +3,8 @@ from django.conf import settings
 
 # Create your models here.
 class PhoneNumber(models.Model):
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='phone_numbers'
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='phonenumbers', on_delete=models.CASCADE)
 
-    )
     label = models.CharField(max_length=30, blank=True, null=True)
 
     line_number = models.CharField(max_length=20, blank=True, null=True)

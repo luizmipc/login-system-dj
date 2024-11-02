@@ -30,9 +30,7 @@ class Address(models.Model):
 class Locality(models.Model):
     additional_details = models.TextField(max_length=100)
     address = models.ForeignKey(Address, related_name='localities', on_delete=models.CASCADE)
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='localities')
 
     def __str__(self):
         return f"{self.additional_details}, {self.address}"
-
-
-
