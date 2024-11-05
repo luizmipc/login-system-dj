@@ -20,3 +20,6 @@ To make the footer stay at the bottom
 
 To make the navbar 
 - https://getbootstrap.com/docs/5.3/examples/offcanvas-navbar/
+
+## Current challenge
+I want to create a login system where users can belong to different groups, have different fields, and have different permissions.
