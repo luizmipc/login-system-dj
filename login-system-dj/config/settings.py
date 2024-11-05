@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'phonenumbers.apps.PhonenumbersConfig',
     'localities.apps.LocalitiesConfig',
     'home.apps.HomeConfig',
+    'times.apps.TimesConfig',
 
     # dependencies
     'widget_tweaks',

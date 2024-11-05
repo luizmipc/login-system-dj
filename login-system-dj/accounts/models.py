@@ -29,6 +29,7 @@ class CustomUserManager(BaseUserManager):
         )
 
         user.is_admin = True
+        user.is_superuser = True
         user.save(using=self.db)
         return user
 
@@ -47,6 +48,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    is_customer = models.BooleanField(default=True)
 
     objects = CustomUserManager()
 
@@ -56,13 +58,15 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
-    def has_perm(self, perm, obj=None):
-        return True
-
-    def has_module_perms(self, app_label):
-        return True
-
     @property
     def is_staff(self):
         return self.is_admin
 
+class Customer(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    user.is_customer = True
+
+    class Meta:
+        permissions = [
+            ("access_page_stopwatch", "Can access stopwatch page")
+        ]

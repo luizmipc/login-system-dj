@@ -6,7 +6,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 
-from accounts.models import CustomUser
+from accounts.models import CustomUser, Customer
 
 class CustomUserCreationForm(forms.ModelForm):
     password1 = forms.CharField(
@@ -47,11 +47,11 @@ class CustomUserAdmin(BaseUserAdmin):
     form = CustomUserChangeForm
     add_form = CustomUserCreationForm
     list_display = ["username", "email", "date_of_birth", "is_admin"]
-    list_filter = ["is_admin"]
+    list_filter = ["is_admin", "groups"]
     fieldsets = [
         (None, {"fields": ["username", "email", "password"]}),
         ("Personal info", {"fields": ["date_of_birth"]}),
-        ("Permissions", {"fields": ["is_admin", "is_superuser", "groups", "user_permissions"]}),
+        ("Permissions", {"fields": ["is_admin", "is_superuser", "is_customer","groups", "user_permissions"]}),
     ]
 
     add_fieldsets = [
@@ -59,13 +59,14 @@ class CustomUserAdmin(BaseUserAdmin):
             None,
             {
                 "classes": ["wide"],
-                "fields": ["username", "email", "date_of_birth", "password1", "password2", "is_admin", "is_superuser"],
+                "fields": ["username", "email", "date_of_birth", "password1", "password2", "is_admin", "is_superuser", 'groups', 'user_permissions'],
             },
         ),
     ]
     search_fields = ["email"]
     ordering = ["email"]
-    filter_horizontal = []
+    filter_horizontal = ["groups", "user_permissions"]
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Customer)
 
