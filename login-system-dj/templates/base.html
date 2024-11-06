@@ -35,10 +35,10 @@
           </ul>
           <ul class="navbar-nav ms-auto justify-content-center flex-grow-1 pe-3">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href={% url "home" %}>Home</a>
+              <a class="nav-link active" id="link-to-home" aria-current="page" href={% url "home" %}>Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href={% url "stopwatch" %}>Stopwatch</a>
+              <a class="nav-link" id="link-to-stopwatch" href={% url "stopwatch" %}>Stopwatch</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -56,10 +56,10 @@
           </ul>
           <ul class="navbar-nav ms-auto pe-3 gap-3">
             <li class="nav-item">
-              <a href={% url "login" %} class="nav-link hover-primary active-brightness-85 py-1 border rounded border-primary text-center" style="width: 5rem;">Login</a>
+              <a href={% url "login" %} id="link-to-login" class="nav-link hover-primary active-brightness-85 py-1 border rounded border-primary text-center" style="width: 5rem;">Login</a>
             </li>
             <li class="nav-item">
-              <a href={% url "signup" %} class="nav-link hover-primary active-brightness-85 py-1 border rounded border-primary text-center" style="width: 5rem;">Sign up</a>
+              <a href={% url "signup" %} id="link-to-signup" class="nav-link hover-primary active-brightness-85 py-1 border rounded border-primary text-center" style="width: 5rem;">Sign up</a>
             </li>
           </ul>
         </div>
