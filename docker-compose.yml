@@ -11,17 +11,21 @@ services:
       POSTGRES_DB: mydb
     ports:
       - "54320:5432"  # Exposes PostgreSQL port for external access
+    env_file:
+      - proj-dj/.env
 
   web:
     build: .
     command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - ./login-system-dj:/login-system-dj
-    working_dir: /login-system-dj
+      - ./proj-dj:/proj-dj
+    working_dir: /proj-dj
     ports:
       - "8000:8000"  # Exposes Django app port for external access
     depends_on:
       - db
+    env_file:
+      - proj-dj/.env
 
 volumes:
   postgres_data:

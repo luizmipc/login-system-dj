@@ -2,7 +2,7 @@
 FROM python:3.12.4
 
 # Set the working directory in the container
-WORKDIR /login-system-dj
+WORKDIR /proj-dj
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -10,13 +10,13 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the requirements file from login-system-dj directory
-COPY login-system-dj/requirements.txt .
+COPY proj-dj/requirements.txt .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the entire project directory into the container
-COPY login-system-dj .
+COPY proj-dj .
 
 # Expose the port the app will run on
 EXPOSE 8000

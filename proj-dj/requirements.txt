@@ -1,0 +1,4 @@
+Django == 5.1.2
+psycopg2>=2.9
+django-widget-tweaks==1.5.0
+django-environ==0.11.2
