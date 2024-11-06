@@ -3,13 +3,18 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <form action="{% url 'logout' %}" method="post">
-    {% csrf_token %}
-    <button style="text-decoration:none;" type="submit">Logout</button>
-  </form>
-{% else %}
-  <p>You are not logged in</p>
-{% endif %}
+<div class="container overflow-auto" >
+  <main class="row">
+    {% if user.is_authenticated %}
+      Hi {{ user.username }}!
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button style="text-decoration:none;" type="submit">Logout</button>
+      </form>
+    {% else %}
+      <p>You are not logged in</p>
+    {% endif %}
+  </main>
+</div>
+
 {% endblock %}

@@ -12,7 +12,13 @@
   {% block additional_css %}
   {% endblock %}
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100"
+style="background: rgb(238,232,174);
+      background: rgb(238,232,174);
+      background: -moz-radial-gradient(circle, rgba(238,232,174,1) 26%, rgba(148,187,233,1) 100%);
+      background: -webkit-radial-gradient(circle, rgba(238,232,174,1) 26%, rgba(148,187,233,1) 100%);
+      background: radial-gradient(circle, rgba(238,232,174,1) 26%, rgba(148,187,233,1) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#eee8ae",endColorstr="#94bbe9",GradientType=1);">
   {% block navbar %}
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
@@ -67,12 +73,8 @@
     </div>
   </nav>
   {% endblock %}
-  <div class="container overflow-auto">
-    <main>
-      {% block content %}
-      {% endblock %}
-    </main>
-  </div>
+  {% block content %}
+  {% endblock %}
   {% block footer %}
   <footer class="bg-black mt-auto">
     <div class="container">

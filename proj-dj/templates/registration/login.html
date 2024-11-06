@@ -1,14 +1,33 @@
 {% extends "base.html" %}
+{% load static %}
 {% load widget_tweaks %}
 
-{% block title %}Log In{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block content %}
-<h2>Log In</h2>
-<form method="post" name="login">
-  {% csrf_token %}
-  {% render_field form.username %}
-  {% render_field form.password %}
-  <button id="submit_login" type="submit">Log In</button>
-</form>
+<div class="container overflow-auto mt-auto">
+  <main class="row justify-content-center">
+    <form method="post" name="login" class="my-5 py-5 d-flex flex-column align-items-center border rounded-5 bg-white" style="max-width: 24rem;" >
+      <div class="d-flex flex-column w-75">
+        <h1 class="text-center mb-4 fs-2">Login</h1>
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          {% render_field form.username class+="form-control" %}
+          {% if form.username.errors %}
+            <span id="username_errors" class="text-danger">{{ form.username.errors|striptags }}</span>
+          {% endif %}
+        </div>
+        <div class="input-group mb-3">
+          {% render_field form.password class+="form-control" %}
+          {% if form.password.errors %}
+            <span id="password_errors" class="text-danger">{{ form.password.errors|striptags }}</span>
+          {% endif %}
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-center w-100">
+          <button id="submit_login" type="submit" class="mb-3 btn btn-primary rounded-pill w-100">Login</button>
+        </div>
+      </div>
+    </form>
+  </main>
+</div>
 {% endblock %}

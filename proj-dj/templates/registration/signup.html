@@ -3,40 +3,44 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
-<h2>Sign Up</h2>
-<form method="post" name="signup">
-  {% csrf_token %}
+<div class="container overflow-auto">
+  <h2>Sign Up</h2>
+  <main class="row">
+    <form method="post" name="signup">
+      {% csrf_token %}
 
-  {% render_field form.username %}
-  {% if form.username.errors %}
-    <span id="username_errors" class="text-danger">{{ form.username.errors|striptags }}</span>
-  {% endif %}
-  <small id="username_help_text" class="text-light">{{ form.username.help_text }}</small>
+      {% render_field form.username %}
+      {% if form.username.errors %}
+        <span id="username_errors" class="text-danger">{{ form.username.errors|striptags }}</span>
+      {% endif %}
+      <small id="username_help_text" class="text-light">{{ form.username.help_text }}</small>
 
-  {% render_field form.email %}
-  {% if form.email.errors %}
-    <span id="email_errors" class="text-danger">{{ form.email.errors|striptags }}</span>
-  {% endif %}
-  <small id="email_help_text" class="text-light">{{ form.email.help_text }}</small>
+      {% render_field form.email %}
+      {% if form.email.errors %}
+        <span id="email_errors" class="text-danger">{{ form.email.errors|striptags }}</span>
+      {% endif %}
+      <small id="email_help_text" class="text-light">{{ form.email.help_text }}</small>
 
-  {% render_field form.date_of_birth %}
-  {% if form.date_of_birth.errors %}
-    <span id="date_of_birth_errors" class="text-danger">{{ form.date_of_birth.errors|striptags }}</span>
-  {% endif %}
-  <small id="date_of_birth_help_text" class="text-light">{{ form.date_of_birth.help_text }}</small>
+      {% render_field form.date_of_birth %}
+      {% if form.date_of_birth.errors %}
+        <span id="date_of_birth_errors" class="text-danger">{{ form.date_of_birth.errors|striptags }}</span>
+      {% endif %}
+      <small id="date_of_birth_help_text" class="text-light">{{ form.date_of_birth.help_text }}</small>
 
-  {% render_field form.password1 %}
-  {% if form.password1.errors %}
-    <span id="password_errors1" class="text-danger">{{ form.password1.errors|striptags }}</span>
-  {% endif %}
-  <small id="password1_help_text" class="text-light">{{ form.password1.help_text }}</small>
+      {% render_field form.password1 %}
+      {% if form.password1.errors %}
+        <span id="password_errors1" class="text-danger">{{ form.password1.errors|striptags }}</span>
+      {% endif %}
+      <small id="password1_help_text" class="text-light">{{ form.password1.help_text }}</small>
 
-  {% render_field form.password2 %}
-  {% if form.password2.errors %}
-    <span id="password_errors2" class="text-danger">{{ form.password2.errors|striptags }}</span>
-  {% endif %}
-  <small id="password2_help_text" class="text-light">{{ form.password2.help_text }}</small>
+      {% render_field form.password2 %}
+      {% if form.password2.errors %}
+        <span id="password_errors2" class="text-danger">{{ form.password2.errors|striptags }}</span>
+      {% endif %}
+      <small id="password2_help_text" class="text-light">{{ form.password2.help_text }}</small>
 
-  <button id="submit_signup" type="submit">Sign Up</button>
-</form>
+      <button id="submit_signup" type="submit">Sign Up</button>
+    </form>
+  </main>
+</div>
 {% endblock %}
