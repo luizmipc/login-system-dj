@@ -3,12 +3,12 @@ from django.dispatch import receiver
 from accounts.models import CustomUser, Customer
 
 @receiver(post_save, sender=CustomUser)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        if instance.is_customer:
-            Customer.objects.create(user=instance)
-
-@receiver(post_save, sender=CustomUser)
-def save_user_profile(sender, instance, **kwargs):
+def manage_customer_profile(sender, instance, **kwargs):
     if instance.is_customer:
-        instance.customer.save()
+        # Get or create the Customer instance, and save it if it already exists
+        customer, created = Customer.objects.get_or_create(user=instance)
+        if not created:  # If the customer already existed, save it to apply updates
+            customer.save()
+    else:
+        # Delete the Customer instance if is_customer is unchecked
+        Customer.objects.filter(user=instance).delete()

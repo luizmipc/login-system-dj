@@ -6,4 +6,4 @@ class AccountsConfig(AppConfig):
     name = 'accounts'
 
     def ready(self):
-        from accounts.signals import create_user_profile, save_user_profile
+        from accounts.signals import manage_customer_profile
