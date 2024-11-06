@@ -44,8 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # apps
     'accounts.apps.AccountsConfig',
-    'phonenumbers.apps.PhonenumbersConfig',
-    'localities.apps.LocalitiesConfig',
+    #'phonenumbers.apps.PhonenumbersConfig',
+    #'localities.apps.LocalitiesConfig',
     'home.apps.HomeConfig',
     'times.apps.TimesConfig',
 

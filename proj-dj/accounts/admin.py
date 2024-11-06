@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import Permission
 
 from accounts.models import CustomUser, Customer
 from accounts.forms import CustomUserChangeForm, CustomUserCreationForm
@@ -12,7 +13,7 @@ class CustomUserAdmin(BaseUserAdmin):
     fieldsets = [
         (None, {"fields": ["username", "email", "password"]}),
         ("Personal info", {"fields": ["date_of_birth"]}),
-        ("Permissions", {"fields": ["is_admin", "is_superuser", "is_customer","groups", "user_permissions"]}),
+        ("Permissions", {"fields": ["is_admin", "is_superuser","groups", "user_permissions"]}),
     ]
 
     add_fieldsets = [
@@ -27,6 +28,8 @@ class CustomUserAdmin(BaseUserAdmin):
     search_fields = ["email"]
     ordering = ["email"]
     filter_horizontal = ["groups", "user_permissions"]
+
+
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Customer)

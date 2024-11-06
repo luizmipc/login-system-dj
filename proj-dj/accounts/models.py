@@ -1,6 +1,6 @@
 from django.db import models
-
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin, Group, Permission
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, email, date_of_birth, password=None):
@@ -61,6 +61,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     @property
     def is_staff(self):
         return self.is_admin
+
+
 
 class Customer(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)

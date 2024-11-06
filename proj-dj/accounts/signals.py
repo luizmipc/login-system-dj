@@ -1,14 +1,18 @@
+# signals.py
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from accounts.models import CustomUser, Customer
+from django.contrib.auth.models import Permission
+from .models import CustomUser, Customer
 
 @receiver(post_save, sender=CustomUser)
-def manage_customer_profile(sender, instance, **kwargs):
+def update_permissions_based_on_is_customer(sender, instance, created, **kwargs):
     if instance.is_customer:
-        # Get or create the Customer instance, and save it if it already exists
-        customer, created = Customer.objects.get_or_create(user=instance)
-        if not created:  # If the customer already existed, save it to apply updates
-            customer.save()
+        # Add permissions when is_customer is True
+        permission = Permission.objects.get(codename='access_page_stopwatch')
+        instance.user_permissions.add(permission)
+        Customer.objects.get_or_create(user=instance)
     else:
-        # Delete the Customer instance if is_customer is unchecked
+        # Remove permissions when is_customer is False
+        permission = Permission.objects.get(codename='access_page_stopwatch')
+        instance.user_permissions.remove(permission)
         Customer.objects.filter(user=instance).delete()
