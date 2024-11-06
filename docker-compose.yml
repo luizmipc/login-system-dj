@@ -1,0 +1,27 @@
+version: '3.12.4'
+
+services:
+  db:
+    image: postgres:13-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    ports:
+      - "54320:5432"  # Exposes PostgreSQL port for external access
+
+  web:
+    build: .
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./login-system-dj:/login-system-dj
+    working_dir: /login-system-dj
+    ports:
+      - "8000:8000"  # Exposes Django app port for external access
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
