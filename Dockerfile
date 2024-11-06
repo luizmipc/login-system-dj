@@ -11,15 +11,19 @@ RUN apt-get update && apt-get install -y \
 
 # Copy the requirements file from login-system-dj directory
 COPY proj-dj/requirements.txt .
-
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the entire project directory into the container
 COPY proj-dj .
+COPY entrypoint.sh /entrypoint.sh
 
-# Expose the port the app will run on
 EXPOSE 8000
 
+# Install Python dependencies
+RUN python -m venv /venv && \
+    /venv/bin/pip install --upgrade pip && \
+    /venv/bin/pip install -r /proj-dj/requirements.txt && \
+    chmod +x /entrypoint.sh
+# Copy the entire project directory into the containe
+ENV PATH="/scripts:/venv/bin:$PATH"
+
+# Expose the port the app will run on
 # Run the Django development server (adjust for production if needed)
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+ENTRYPOINT [ "/entrypoint.sh" ]
