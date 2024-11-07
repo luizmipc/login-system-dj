@@ -16,11 +16,6 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v3
 
-      - name: Install Docker Compose
-        run: |
-          curl -L "https://github.com/docker/compose/releases/download/v2.6.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          chmod +x /usr/local/bin/docker-compose
-
       - name: Generate .env file
         run: |
           echo "POSTGRES_USER=user" >> proj-dj/.env
@@ -31,34 +26,11 @@ jobs:
         run: docker-compose up --build -d
         working-directory: proj-dj
 
-      - name: Wait for the web container to be available
-        run: |
-          until docker ps -q -f name=web; do
-            echo 'Waiting for the web container...'
-            sleep 5
-          done
-        shell: bash
-
-      - name: Fix Permissions in Docker Container
-        run: |
-          docker exec web chmod -R 777 /proj-dj/tests/cypress/screenshots
-        working-directory: proj-dj
-
-      - name: Wait for Web Service to be Ready
-        run: |
-          until curl --output /dev/null --silent --head --fail http://localhost:8000; do
-            echo 'Waiting for Django server...'
-            sleep 5
-          done
-        shell: bash
-
       - name: Run Cypress Tests
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v6
         with:
           working-directory: proj-dj/tests
-          wait-on: http://localhost:8000
-        env:
-          CYPRESS_baseUrl: http://localhost:8000
+          wait-on: http://web:8000
 
       - name: Stop and Clean Up Docker Containers
         run: docker-compose down
