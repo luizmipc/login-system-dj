@@ -19,8 +19,8 @@ EXPOSE 8000
 # Install Python dependencies
 RUN python -m venv /venv && \
     /venv/bin/pip install --upgrade pip && \
-    /venv/bin/pip install -r /proj-dj/requirements.txt && \
-    chmod +x /entrypoint.sh
+    /venv/bin/pip install -r /proj-dj/requirements.txt
+RUN chmod +x /entrypoint.sh
 # Copy the entire project directory into the containe
 ENV PATH="/scripts:/venv/bin:$PATH"
 

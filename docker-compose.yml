@@ -6,9 +6,13 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "54320:5432"  # Exposes PostgreSQL port for external access
+      - "54320:5432"
     env_file:
       - proj-dj/.env
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=user
+      - POSTGRES_DB=mydb
 
   web:
     build: .
@@ -17,11 +21,20 @@ services:
       - ./proj-dj:/proj-dj
     working_dir: /proj-dj
     ports:
-      - "8000:8000"  # Exposes Django app port for external access
+      - "8000:8000"
     depends_on:
       - db
     env_file:
       - proj-dj/.env
+
+  cypress:
+    image: cypress/included:13.15.1
+    working_dir: /proj-dj/tests
+    entrypoint: ["cypress", "run"]
+    volumes:
+      - ./proj-dj:/proj-dj  # Mount the entire project
+    depends_on:
+      - web
 
 volumes:
   postgres_data:
