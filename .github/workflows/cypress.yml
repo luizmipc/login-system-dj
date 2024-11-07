@@ -40,18 +40,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r proj-dj/requirements.txt
-
-      - name: Run Migration on localserver
-        run: |
-            python proj-dj/manage.py makemigrations
-            python proj-dj/manage.py migrate
-        env:
-          DB_ENGINE: "django.db.backends.postgresql"
-          DB_NAME: "mydb"
-          DB_USER: "user"
-          DB_PASSWORD: "password"
-          DB_HOST: "db"
-          DB_PORT: "5432"
+    
 
       - name: Build and Start Docker Services
         run: docker-compose up --build
@@ -67,9 +56,10 @@ jobs:
 
 
 
-      - name: Run Cypress Tests
-        run: |
-          docker exec cypress /bin/sh -c "cypress run --config baseUrl=http://web:8000"
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: proj-dj/tests
         env:
           CYPRESS_baseUrl: http://web:8000
 
