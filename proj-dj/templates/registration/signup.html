@@ -1,46 +1,73 @@
 {% extends "base.html" %}
+{% load static %}
 {% load widget_tweaks %}
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
-<div class="container overflow-auto">
-  <h2>Sign Up</h2>
-  <main class="row">
-    <form method="post" name="signup">
-      {% csrf_token %}
-
-      {% render_field form.username %}
-      {% if form.username.errors %}
-        <span id="username_errors" class="text-danger">{{ form.username.errors|striptags }}</span>
-      {% endif %}
-      <small id="username_help_text" class="text-light">{{ form.username.help_text }}</small>
-
-      {% render_field form.email %}
-      {% if form.email.errors %}
-        <span id="email_errors" class="text-danger">{{ form.email.errors|striptags }}</span>
-      {% endif %}
-      <small id="email_help_text" class="text-light">{{ form.email.help_text }}</small>
-
-      {% render_field form.date_of_birth %}
-      {% if form.date_of_birth.errors %}
-        <span id="date_of_birth_errors" class="text-danger">{{ form.date_of_birth.errors|striptags }}</span>
-      {% endif %}
-      <small id="date_of_birth_help_text" class="text-light">{{ form.date_of_birth.help_text }}</small>
-
-      {% render_field form.password1 %}
-      {% if form.password1.errors %}
-        <span id="password_errors1" class="text-danger">{{ form.password1.errors|striptags }}</span>
-      {% endif %}
-      <small id="password1_help_text" class="text-light">{{ form.password1.help_text }}</small>
-
-      {% render_field form.password2 %}
-      {% if form.password2.errors %}
-        <span id="password_errors2" class="text-danger">{{ form.password2.errors|striptags }}</span>
-      {% endif %}
-      <small id="password2_help_text" class="text-light">{{ form.password2.help_text }}</small>
-
-      <button id="submit_signup" type="submit">Sign Up</button>
+<div class="container overflow-auto mt-auto">
+  <main class="mx-1 row justify-content-center">
+    <form method="post" name="signup" class="my-5 py-5 d-flex flex-column align-items-center border rounded-5 bg-white" style="max-width: 24rem;">
+      <div class="d-flex flex-column w-75">
+        <h1 class="text-center mb-4 fs-2">Sign up</h1>
+        {% csrf_token %}
+        <div class="mb-4">
+          <label class="form-label">{{ form.username.label }}</label>
+          {% render_field form.username class+="form-control" %}
+          {% if form.username.errors %}
+            <small id="username_errors" class="text-danger">{{ form.username.errors|striptags }}</small>
+          {% endif %}
+          <ul id="username_help_text" class="form-text my-0">
+            <li><small>Choose a unique username with 5-30 characters</small></li>
+            <li><small>Only accept letters and digits</small></li>
+          </ul>
+        </div>
+        <div class="mb-4">
+          <label class="form-label">{{ form.email.label }}</label>
+          {% render_field form.email class+="form-control" %}
+          {% if form.email.errors %}
+            <small id="email_errors" class="text-danger">{{ form.email.errors|striptags }}</small>
+          {% endif %}
+        </div>
+        <div class="mb-4">
+          <label class="form-label">{{ form.date_of_birth.label }}</label>
+          {% render_field form.date_of_birth class+="form-control" %}
+          {% if form.date_of_birth.errors %}
+            <small id="date_of_birth_errors" class="text-danger">{{ form.date_of_birth.errors|striptags }}</small>
+          {% endif %}
+          <ul id="date_of_birth_help_text" class="form-text my-0">
+            <li><small>Format: mm/dd/yyyy</small></li>
+          </ul>
+        </div>
+        <div class="mb-4">
+          <label class="form-label">{{ form.password1.label }}</label>
+          {% render_field form.password1 class+="form-control" %}
+          {% if form.password1.errors %}
+            <small id="password_errors1" class="text-danger">{{ form.password1.errors|striptags }}</small>
+          {% endif %}
+          <ul id="password1_help_text" class="form-text my-0">
+            <li><small>Your password can't be too similar to your other personal information.</small></li>
+            <li><small>Your password must contain at least 8 characters.</small></li>
+            <li><small>Your password can't be a commonly used password.</small></li>
+            <li><small>Your password can't be entirely numeric.</small></li>
+          </ul>
+        </div>
+        <div class="mb-4">
+          <label class="form-label">{{ form.password2.label }}</label>
+          {% render_field form.password2 class+="form-control" %}
+          {% if form.password2.errors %}
+            <small id="password_errors2" class="text-danger">{{ form.password2.errors|striptags }}</small>
+          {% endif %}
+          <ul id="password2_help_text" class="form-text my-0">
+            <li><small>Enter the same password as before, for verification.</small></li>
+          </ul>
+        </div>
+        <button id="submit_signup" type="submit" class="mb-3 btn btn-primary rounded-pill w-100">Sign up</button>
+      </div>
     </form>
   </main>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src={% static "scripts/restrict_to_alphanumeric.js" %}></script>
 {% endblock %}

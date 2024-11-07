@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.validators import MinLengthValidator
+
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin, Group, Permission
 
@@ -37,6 +39,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(
         verbose_name="username",
         max_length=30,
+        validators=[MinLengthValidator(5)],
         unique=True,
     )
     email = models.EmailField(
