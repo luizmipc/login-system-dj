@@ -43,14 +43,10 @@ jobs:
     
 
       - name: Build and Start Docker Services
-        run: docker-compose up --build
-        working-directory: proj-dj
-
-      - name: Run Migrations
         run: |
+          docker-compose up --build
           docker-compose exec login-system-dj-web-1 python manage.py makemigrations accounts
           docker-compose exec login-system-dj-web-1 python manage.py migrate
-          exit
         working-directory: proj-dj
       
       - name: Wait for Web Service to be Ready
