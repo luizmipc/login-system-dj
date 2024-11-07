@@ -31,7 +31,7 @@ jobs:
           echo "DB_PORT=5432" >> proj-dj/.env
 
       - name: Build and Start Docker Services
-        run: docker-compose up --build -d
+        run: docker-compose up --build
         working-directory: proj-dj
 
       - name: Run Cypress Tests
