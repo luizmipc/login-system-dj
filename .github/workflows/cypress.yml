@@ -40,9 +40,7 @@ jobs:
         shell: bash
 
       - name: Fix Permissions in Docker Container
-        run: |
-          docker exec web chmod -R 777 /proj-dj/tests/cypress/screenshots
-          docker exec web chmod -R 777 /proj-dj/tests/cypress/videos
+        run: 
         working-directory: proj-dj
 
       - name: Wait for Web Service to be Ready
