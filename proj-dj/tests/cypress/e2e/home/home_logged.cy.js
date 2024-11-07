@@ -1,8 +1,9 @@
 describe('Home app tests logged in', () => {
   beforeEach(() => {
+    const UNIQUE_SUFIXX = Date.now();
 
-    const USERNAME = `teste`;
-    const EMAIL = `teste@example.com`;
+    const USERNAME = `teste${UNIQUE_SUFIXX}`;
+    const EMAIL = `teste${UNIQUE_SUFIXX}@example.com`;
     const PASSWORD = `1234567890#Kl`;
     cy.visit('/accounts/signup/');
     cy.get('#id_username').type(USERNAME);
