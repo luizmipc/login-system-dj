@@ -29,7 +29,7 @@ jobs:
 
       - name: Fix Permissions on Screenshot Directory
         run: |
-          sudo chmod -R 777 proj-dj/tests/cypress/screenshots
+          sudo chmod -R 777 proj-dj/tests/cypress/e2e
 
       - name: Build and Start Docker Services
         run: docker-compose up --build -d
