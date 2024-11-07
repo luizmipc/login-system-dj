@@ -31,6 +31,14 @@ jobs:
         run: docker-compose up --build -d
         working-directory: proj-dj
 
+      - name: Wait for the web container to be available
+        run: |
+          until docker ps -q -f name=web; do
+            echo 'Waiting for the web container...'
+            sleep 5
+          done
+        shell: bash
+
       - name: Fix Permissions in Docker Container
         run: |
           docker exec web chmod -R 777 /proj-dj/tests/cypress/screenshots
