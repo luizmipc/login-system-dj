@@ -40,11 +40,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r proj-dj/requirements.txt
-          
+
       - name: Run Migration on localserver
         run: |
-            python manage.py makemigrations
-            python manage.py migrate
+            python proj-dj/manage.py makemigrations
+            python proj-dj/manage.py migrate
 
       - name: Build and Start Docker Services
         run: docker-compose up --build
