@@ -27,12 +27,14 @@ jobs:
           echo "POSTGRES_PASSWORD=password" >> proj-dj/.env
           echo "POSTGRES_DB=mydb" >> proj-dj/.env
 
-      - name: Fix Permissions on Screenshot Directory
-        run: |
-          sudo chmod -R 777 proj-dj/tests/cypress/e2e
-
       - name: Build and Start Docker Services
         run: docker-compose up --build -d
+        working-directory: proj-dj
+
+      - name: Fix Permissions in Docker Container
+        run: |
+          docker exec web chmod -R 777 /proj-dj/tests/cypress/screenshots
+          docker exec web chmod -R 777 /proj-dj/tests/cypress/videos
         working-directory: proj-dj
 
       - name: Wait for Web Service to be Ready

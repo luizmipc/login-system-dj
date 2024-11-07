@@ -26,6 +26,7 @@ services:
       - db
     env_file:
       - proj-dj/.env
+    user: root  # Temporarily use root user to test permission issues
 
   cypress:
     image: cypress/included:13.15.1
@@ -35,6 +36,9 @@ services:
       - ./proj-dj:/proj-dj  # Mount the entire project
     depends_on:
       - web
+    user: root  # Ensure the container runs with root permissions for testing
+    environment:
+      - CYPRESS_baseUrl=http://web:8000
 
 volumes:
   postgres_data:
