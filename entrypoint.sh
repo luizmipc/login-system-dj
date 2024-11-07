@@ -1,5 +1,6 @@
 #!/bin/sh
 
+chown -R duser:duser .
 # Run migrations
 python manage.py makemigrations accounts
 python manage.py migrate
