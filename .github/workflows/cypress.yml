@@ -27,6 +27,10 @@ jobs:
           echo "POSTGRES_PASSWORD=password" >> proj-dj/.env
           echo "POSTGRES_DB=mydb" >> proj-dj/.env
 
+      - name: Fix Permissions on Screenshot Directory
+        run: |
+          sudo chmod -R 777 proj-dj/tests/cypress/screenshots
+
       - name: Build and Start Docker Services
         run: docker-compose up --build -d
         working-directory: proj-dj
