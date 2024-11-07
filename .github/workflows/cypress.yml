@@ -38,7 +38,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           working-directory: proj-dj/tests
-          wait-on: http://web:8000
+          
 
       - name: Stop and Clean Up Docker Containers
         run: docker-compose down
