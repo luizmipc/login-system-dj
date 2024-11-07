@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
 # Copy the requirements file from login-system-dj directory
 COPY proj-dj/requirements.txt .
 COPY proj-dj .
-COPY entrypoint.sh /entrypoint.sh
+COPY entrypoint.sh proj-dj/entrypoint.sh
 
 EXPOSE 8000
 
@@ -20,7 +20,7 @@ EXPOSE 8000
 RUN python -m venv /venv && \
     /venv/bin/pip install --upgrade pip && \
     /venv/bin/pip install -r /proj-dj/requirements.txt
-RUN chmod +x /entrypoint.sh
+RUN chmod +x /proj-dj/entrypoint.sh
 # Copy the entire project directory into the containe
 ENV PATH="/scripts:/venv/bin:$PATH"
 
