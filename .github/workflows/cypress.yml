@@ -45,6 +45,13 @@ jobs:
         run: |
             python proj-dj/manage.py makemigrations
             python proj-dj/manage.py migrate
+        env:
+          DB_ENGINE: django.db.backends.postgresql
+          DB_NAME: mydb
+          DB_USER: user
+          DB_PASSWORD: password
+          DB_HOST: db
+          DB_PORT: 5432
 
       - name: Build and Start Docker Services
         run: docker-compose up --build
