@@ -33,7 +33,7 @@ jobs:
 
       - name: Wait for Web Service to be Ready
         run: |
-          until curl --output /dev/null --silent --head --fail http://web:8000; do
+          until curl --output /dev/null --silent --head --fail http://localhost:8000; do
             echo 'Waiting for Django server...'
             sleep 5
           done
@@ -43,9 +43,9 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           working-directory: proj-dj/tests
-          wait-on: http://web:8000
+          wait-on: http://localhost:8000
         env:
-          CYPRESS_baseUrl: http://web:8000
+          CYPRESS_baseUrl: http://localhost:8000
 
       - name: Stop and Clean Up Docker Containers
         run: docker-compose down
