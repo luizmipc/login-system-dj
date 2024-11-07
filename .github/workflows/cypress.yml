@@ -29,18 +29,37 @@ jobs:
           echo "DB_PASSWORD=password" >> proj-dj/.env
           echo "DB_HOST=db" >> proj-dj/.env
           echo "DB_PORT=5432" >> proj-dj/.env
+  
+      - name: Run environment variables
+        run: python -m venv venv
+
+      - name: Activate environment variables
+        run: source venv/bin/activate
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r proj-dj/requirements.txt
 
       - name: Build and Start Docker Services
         run: docker-compose up --build
         working-directory: proj-dj
+      
+      - name: Wait for Web Service to be Ready
+        run: |
+          until curl --output /dev/null --silent --head --fail http://localhost:8000; do
+            echo 'Waiting for Django server...'
+            sleep 5
+          done
+        shell: bash
+
+
 
       - name: Run Cypress Tests
-        uses: cypress-io/github-action@v6
-        with:
-          working-directory: proj-dj/tests
-          wait-on: http://localhost:8000
+        run: |
+          docker exec cypress /bin/sh -c "cypress run --config baseUrl=http://web:8000"
         env:
-          CYPRESS_baseUrl: http://localhost:8000
+          CYPRESS_baseUrl: http://web:8000
 
       - name: Stop and Clean Up Docker Containers
         run: docker-compose down
