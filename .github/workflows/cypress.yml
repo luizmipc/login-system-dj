@@ -1,0 +1,53 @@
+name: CI for Django and Cypress
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:24.0.2  # Version as needed
+        options: --privileged  # Allows Docker in Docker
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Compose
+        run: |
+          docker compose version || echo "Installing Docker Compose"
+          curl -L "https://github.com/docker/compose/releases/download/v2.6.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          chmod +x /usr/local/bin/docker-compose
+
+      - name: Build and Start Docker Services
+        run: docker-compose -f docker-compose.yml up --build -d
+        env:
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: mydb
+
+      - name: Wait for Web Service to be Ready
+        run: |
+          until $(curl --output /dev/null --silent --head --fail http://localhost:8000); do
+            printf '.'
+            sleep 5
+          done
+        shell: bash
+
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v4
+        with:
+          working-directory: proj-dj/tests
+          wait-on: http://localhost:8000  # Ensure Django server is up
+        env:
+          CYPRESS_baseUrl: http://localhost:8000  # Base URL for Cypress tests
+
+      - name: Stop and Clean Up Docker Containers
+        run: docker-compose -f docker-compose.yml down
