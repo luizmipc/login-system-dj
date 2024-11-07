@@ -40,6 +40,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r proj-dj/requirements.txt
+      - name: Migrations
+        run : |
+          python proj-dj/manage.py makemigrations accounts
+          python proj-dj/manage.py migrate
     
 
       - name: Build and Start Docker Services
