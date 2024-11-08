@@ -1,5 +1,8 @@
 from accounts.models import CustomUser
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth.forms import AuthenticationForm
+from django.utils.translation import gettext_lazy as _
+from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
@@ -70,3 +73,32 @@ class CustomUserChangeForm(forms.ModelForm):
     class Meta:
         model =CustomUser
         fields = ["username", "email", "password", "date_of_birth", "is_active", "is_admin"]
+
+class CustomAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(
+        label="Email",
+        widget=forms.TextInput
+    )
+    def clean_password(self):
+        """Check if the provided password is correct for the given username/email."""
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+
+        # Attempt to authenticate the user
+        user = authenticate(self.request, username=username, password=password)
+
+        if user is None:
+            raise ValidationError(_("Invalid email or password"), code='invalid_login')
+
+        return password
+
+    password = forms.CharField(
+        label=_("Password"),
+        strip=False,
+        widget=forms.PasswordInput
+    )
+
+    def confirm_login_allowed(self, user):
+        """Override to customize login restrictions."""
+        if not user.is_active:
+            raise ValidationError("This account is inactive.")
