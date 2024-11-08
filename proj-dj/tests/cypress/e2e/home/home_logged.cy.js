@@ -20,7 +20,7 @@ describe('Home app tests logged in', () => {
     cy.visit('/accounts/login/');
     cy.get('#id_username').type(EMAIL);
     cy.get('#id_password').type(PASSWORD);
-    cy.get('#submit_login').click()
+    cy.get('#submit_login').click();
   });
 
   it('should load the login page successfully', () => {

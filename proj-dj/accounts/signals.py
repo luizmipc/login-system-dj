@@ -8,11 +8,15 @@ from .models import CustomUser, Customer
 def update_permissions_based_on_is_customer(sender, instance, created, **kwargs):
     if instance.is_customer:
         # Add permissions when is_customer is True
-        permission = Permission.objects.get(codename='access_page_stopwatch')
-        instance.user_permissions.add(permission)
+        permission1 = Permission.objects.get(codename='can_access_page_stopwatch')
+        permission2 = Permission.objects.get(codename='can_access_page_profile')
+        instance.user_permissions.add(permission1)
+        instance.user_permissions.add(permission2)
         Customer.objects.get_or_create(user=instance)
     else:
         # Remove permissions when is_customer is False
-        permission = Permission.objects.get(codename='access_page_stopwatch')
-        instance.user_permissions.remove(permission)
+        permission1 = Permission.objects.get(codename='can_access_page_stopwatch')
+        permission2 = Permission.objects.get(codename='can_access_page_profile')
+        instance.user_permissions.remove(permission1)
+        instance.user_permissions.remove(permission2)
         Customer.objects.filter(user=instance).delete()

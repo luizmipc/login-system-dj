@@ -10,7 +10,8 @@ from django import forms
 class CustomUserCreationForm(forms.ModelForm):
     username = forms.CharField(
         widget=forms.TextInput,
-        required=True
+        required=True,
+        max_length=30,
     )
     def clean_username(self):
         username = self.cleaned_data.get("username")

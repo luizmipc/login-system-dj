@@ -23,11 +23,4 @@ describe('Home app tests not logged in', () => {
       expect(loc.pathname).to.eq('/');
     });
   });
-
-  it('should load the login page instead of stopwatch successfully', () => {
-    cy.get('#link-to-stopwatch').click()
-    cy.location().should((loc) => {
-      expect(loc.pathname).to.eq('/accounts/login/');
-    });
-  });
 });

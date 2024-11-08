@@ -5,4 +5,4 @@ from django.shortcuts import render
 
 class StopWatchView(PermissionRequiredMixin, TemplateView):
     template_name = "times/stopwatch.html"
-    permission_required = ["accounts.access_page_stopwatch"]
+    permission_required = ["accounts.can_access_page_stopwatch"]

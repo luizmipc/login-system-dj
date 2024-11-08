@@ -73,5 +73,6 @@ class Customer(models.Model):
 
     class Meta:
         permissions = [
-            ("access_page_stopwatch", "Can access stopwatch page")
+            ("can_access_page_stopwatch", "Can access stopwatch page"),
+            ("can_access_page_profile", "Can access profile page"),
         ]

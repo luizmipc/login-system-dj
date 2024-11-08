@@ -3,16 +3,16 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<div class="container overflow-auto" >
-  <main class="row">
+<div class="container overflow-auto mt-auto">
+  <main class="mx-1 row justify-content-center">
     {% if user.is_authenticated %}
-      Hi {{ user.username }}!
-      <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <button style="text-decoration:none;" type="submit">Logout</button>
-      </form>
+    <span id="id_profile_username" class="my-5 py-5 d-flex flex-column align-items-center border rounded-5 bg-white fs-2" style="max-width: 24rem;">{{ user.username }}</span>
+    <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <button style="text-decoration:none;" type="submit">Logout</button>
+    </form>
     {% else %}
-      <p>You are not logged in</p>
+    <span class="my-5 py-5 d-flex flex-column align-items-center border rounded-5 bg-white fs-2" style="max-width: 24rem;">You are not logged in</span>
     {% endif %}
   </main>
 </div>
