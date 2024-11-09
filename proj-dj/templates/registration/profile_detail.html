@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="container overflow-auto mt-auto">
+  <main class="mx-1 row justify-content-center">
+    <div class="my-5 py-4 d-flex flex-column align-items-center border rounded-5 bg-white" style="max-width: 24rem;">
+      <h1 class="text-center mb-4 fs-2">Profile</h1>
+      <div class="input-group mb-4">
+        <span class="input-group-text" id="username-addon">Username</span>
+        <span class="form-control">{{ user_profile.username }}</span>
+      </div>
+      <div class="input-group mb-4">
+        <span class="input-group-text" id="email-addon">Email</span>
+        <span class="form-control">{{ user_profile.email }}</span>
+      </div>
+      <div class="input-group mb-4">
+        <span class="input-group-text" id="date_of_birth-addon">Birthday</span>
+        <span class="form-control">{{ user_profile.date_of_birth }}</span>
+      </div>
+      <div class="d-flex flex-column justify-content-center align-items-center w-100">
+        <a href="{% url 'profile_update' user_profile.username %}" id="link-to-profile-update" class="mb-3 btn btn-primary rounded-pill w-100">Edit it</a>
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock %}

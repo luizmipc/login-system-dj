@@ -75,4 +75,5 @@ class Customer(models.Model):
         permissions = [
             ("can_access_page_stopwatch", "Can access stopwatch page"),
             ("can_access_page_profile", "Can access profile page"),
+            ("can_access_page_profile_update", "Can access profile update page")
         ]

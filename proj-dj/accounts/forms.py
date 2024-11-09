@@ -21,7 +21,7 @@ class CustomUserCreationForm(forms.ModelForm):
         if CustomUser.objects.filter(username=username).exists():
             raise ValidationError("Username already exists.")
 
-        if len(username) <= 5:
+        if len(username) < 5:
             raise ValidationError("Username too short. It must be at least 5 characters.")
         return username
 
@@ -72,7 +72,13 @@ class CustomUserCreationForm(forms.ModelForm):
 
 class CustomUserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField()
-
+    date_of_birth = forms.DateField(
+        widget=forms.DateInput(attrs={
+            "type": "date"
+        }),
+        label="Birthday",
+        help_text="Format: mm/dd/YY"
+    )
     class Meta:
         model =CustomUser
         fields = ["username", "email", "password", "date_of_birth", "is_active", "is_admin"]

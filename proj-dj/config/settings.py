@@ -149,3 +149,13 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Date
+# Disable localization formatting to use the custom date format
+USE_L10N = False
+
+# Set the date format to mm/dd/yyyy
+DATE_FORMAT = "m/d/Y"
+
+# Optional: If you're using date input fields and want to specify the input format
+DATE_INPUT_FORMATS = ["%m/%d/%Y"]

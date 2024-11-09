@@ -10,13 +10,17 @@ def update_permissions_based_on_is_customer(sender, instance, created, **kwargs)
         # Add permissions when is_customer is True
         permission1 = Permission.objects.get(codename='can_access_page_stopwatch')
         permission2 = Permission.objects.get(codename='can_access_page_profile')
+        permission3 = Permission.objects.get(codename='can_access_page_profile_update')
         instance.user_permissions.add(permission1)
         instance.user_permissions.add(permission2)
+        instance.user_permissions.add(permission3)
         Customer.objects.get_or_create(user=instance)
     else:
         # Remove permissions when is_customer is False
         permission1 = Permission.objects.get(codename='can_access_page_stopwatch')
         permission2 = Permission.objects.get(codename='can_access_page_profile')
+        permission3 = Permission.objects.get(codename='can_access_page_profile_update')
         instance.user_permissions.remove(permission1)
         instance.user_permissions.remove(permission2)
+        instance.user_permissions.remove(permission3)
         Customer.objects.filter(user=instance).delete()
