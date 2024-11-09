@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.views import LoginView
 from django.contrib import messages
 from django.shortcuts import redirect
+
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
@@ -15,7 +16,7 @@ class SignUpView(CreateView):
   template_name = "registration/signup.html"
   success_url = reverse_lazy("login")
 
-class ProfileDetailView(PermissionRequiredMixin, DetailView):
+class ProfileDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = CustomUser
     context_object_name = "user"
     template_name = "registration/profile_detail.html"  # Ensure this matches your template name
@@ -31,12 +32,16 @@ class ProfileDetailView(PermissionRequiredMixin, DetailView):
         context['user_profile'] = self.request.user
         return context
 
+    def get_success_url(self):
+        # Redirect to the updated user's profile page
+        return reverse_lazy('profile', kwargs={'username': self.object.username})
+
 @login_required
 def redirect_to_user_profile(request):
     # Redirect to the logged-in user's profile URL
     return redirect('profile', username=request.user.username)
 
-class ProfileUpdateView(PermissionRequiredMixin, UpdateView):
+class ProfileUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = CustomUser
     form_class = CustomUserChangeForm
     context_object_name = "user"
@@ -47,6 +52,24 @@ class ProfileUpdateView(PermissionRequiredMixin, UpdateView):
         # Fetch user by username
         username = self.kwargs.get('username')
         return get_object_or_404(CustomUser, username=username)
+
+    def form_valid(self, form):
+        # Explicitly save the form
+        form.save()
+        # Display success message
+        messages.success(self.request, "Your profile was updated successfully!")
+
+        # Refresh user session after form save
+        from django.contrib.auth import login
+        login(self.request, self.request.user)
+
+        # Redirect to the updated user's profile page
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        # Redirect to the updated user's profile page
+        return reverse_lazy('profile', kwargs={'username': self.object.username})
+
 
 
 @login_required
