@@ -38,4 +38,5 @@ describe('Login page tests', function () { // Use 'function' keyword here
     cy.get('#submit_login').click();
     cy.get('#id_profile_username').should('have.text', this.USERNAME);
   });
+
 });

@@ -20,19 +20,22 @@ class CustomUserCreationForm(forms.ModelForm):
         username = self.cleaned_data.get("username")
         if CustomUser.objects.filter(username=username).exists():
             raise ValidationError("Username already exists.")
+
+        if len(username) <= 5:
+            raise ValidationError("Username too short. It must be at least 5 characters.")
         return username
 
     date_of_birth = forms.DateField(
         widget=forms.DateInput(attrs={
-            "type": "date",
+            "type": "date"
         }),
-        label="Date of Birth",
+        label="Birthday",
         help_text="Format: mm/dd/YY"
     )
     def clean_date_of_birth(self):
         date_of_birth = self.cleaned_data.get("date_of_birth")
         if date_of_birth > timezone.now().date():
-            raise ValidationError("Date of Birth cannot be in the future.")
+            raise ValidationError("Birthday cannot be in the future.")
         return date_of_birth
 
     password1 = forms.CharField(
@@ -53,7 +56,7 @@ class CustomUserCreationForm(forms.ModelForm):
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
-            raise ValidationError("Passwords don't match")
+            raise ValidationError("Passwords don't match.")
         return password2
 
     class Meta:

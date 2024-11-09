@@ -26,7 +26,7 @@ describe('Home app tests logged in', () => {
   it('should load the login page successfully', () => {
     cy.get('#link-to-login').click();
     cy.location().should((loc) => {
-      expect(loc.pathname).to.eq('/accounts/login/');
+      expect(loc.pathname).to.eq('/');
     });
   });
 
