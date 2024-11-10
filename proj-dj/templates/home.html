@@ -7,9 +7,9 @@
   <main class="mx-1 row justify-content-center">
     {% if user.is_authenticated %}
     <span id="id_profile_username" class="my-5 py-5 d-flex flex-column align-items-center border rounded-5 bg-white fs-2" style="max-width: 24rem;">{{ user.username }}</span>
-    <form action="{% url 'logout' %}" method="post">
+    <form action="{% url 'logout' %}" method="post" class="text-center">
       {% csrf_token %}
-      <button style="text-decoration:none;" type="submit">Logout</button>
+      <button id="submit_logout" style="text-decoration:none;" type="submit">Logout</button>
     </form>
     {% else %}
     <span class="my-5 py-5 d-flex flex-column align-items-center border rounded-5 bg-white fs-2" style="max-width: 24rem;">You are not logged in</span>

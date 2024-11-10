@@ -1,25 +1,16 @@
-describe('Home app tests logged in', () => {
-  beforeEach(() => {
+describe('Home app tests logged in', function () {
+  beforeEach(function () {
     const UNIQUE_SUFIXX = Date.now();
 
-    const USERNAME = `teste${UNIQUE_SUFIXX}`;
-    const EMAIL = `teste${UNIQUE_SUFIXX}@example.com`;
-    const PASSWORD = `1234567890#Kl`;
-    cy.visit('/accounts/signup/');
-    cy.get('#id_username').type(USERNAME);
-    cy.get('#id_email').type(EMAIL);
-    
-    // Convert MM/DD/YYYY to YYYY-MM-DD
-    const date = '12311990'; // MMDDYYYY
-    const formattedDate = `${date.slice(4, 8)}-${date.slice(0, 2)}-${date.slice(2, 4)}`; // Converts to YYYY-MM-DD
+    this.USERNAME = `teste${UNIQUE_SUFIXX}`;
+    this.EMAIL = `teste${UNIQUE_SUFIXX}@example.com`;
+    this.PASSWORD = `1234567890#Kl`;
 
-    cy.get('#id_date_of_birth').type(formattedDate); // Use the formatted date
-    cy.get('#id_password1').type(PASSWORD);
-    cy.get('#id_password2').type(PASSWORD);
-    cy.get('#submit_signup').click()
+    cy.signup(this.USERNAME, this.EMAIL, this.PASSWORD);
+
     cy.visit('/accounts/login/');
-    cy.get('#id_username').type(EMAIL);
-    cy.get('#id_password').type(PASSWORD);
+    cy.get('#id_username').type(this.EMAIL);
+    cy.get('#id_password').type(this.PASSWORD);
     cy.get('#submit_login').click();
   });
 
@@ -50,4 +41,16 @@ describe('Home app tests logged in', () => {
       expect(loc.pathname).to.eq('/times/stopwatch/');
     });
   });
+
+  it('should load the profile detail page successfully', function () {
+    cy.get('#link-to-profile').click()
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.eq(`/accounts/profile/${this.USERNAME}/`)
+    });
+    cy.get('#id_username').should('have.text', this.USERNAME);
+    cy.get('#id_email').should('have.text', this.EMAIL);
+    const date = '12311990'; // MMDDYYYY
+    const formattedDate = `${date.slice(0, 2)}/${date.slice(2, 4)}/${ date.slice(4, 8)}`; // YYYY-MM-DD
+    cy.get('#id_date_of_birth').should('have.text', formattedDate);
+  })
 });
