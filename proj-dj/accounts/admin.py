@@ -3,10 +3,10 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Permission
 
 from accounts.models import CustomUser, Customer
-from accounts.forms import CustomUserChangeForm, CustomUserCreationForm
+from accounts.forms import CustomUserUpdateForm, CustomUserCreationForm
 
 class CustomUserAdmin(BaseUserAdmin):
-    form = CustomUserChangeForm
+    form = CustomUserUpdateForm
     add_form = CustomUserCreationForm
     list_display = ["username", "email", "date_of_birth", "is_admin"]
     list_filter = ["is_admin", "groups"]

@@ -3,13 +3,14 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.views import LoginView
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.contrib.auth import login
 
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.views.generic import CreateView, DetailView, UpdateView
 from .models import CustomUser
-from .forms import CustomUserCreationForm, CustomUserChangeForm, CustomAuthenticationForm
+from .forms import CustomUserCreationForm, CustomUserUpdateForm, CustomAuthenticationForm
 
 class SignUpView(CreateView):
   form_class = CustomUserCreationForm
@@ -41,17 +42,25 @@ def redirect_to_user_profile(request):
     # Redirect to the logged-in user's profile URL
     return redirect('profile', username=request.user.username)
 
-class ProfileUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class CustomUserUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = CustomUser
-    form_class = CustomUserChangeForm
+    form_class = CustomUserUpdateForm
     context_object_name = "user"
     template_name = "registration/profile_update.html"
     permission_required = ["accounts.can_access_page_profile_update"]
 
     def get_object(self):
-        # Fetch user by username
+        # Fetch user by username from URL kwargs
         username = self.kwargs.get('username')
         return get_object_or_404(CustomUser, username=username)
+
+    def get_form_kwargs(self):
+        # Get default form kwargs
+        kwargs = super().get_form_kwargs()
+
+        # Inject user_id into form kwargs
+        kwargs['user_id'] = self.request.user.pk  # Pass the user ID (primary key)
+        return kwargs
 
     def form_valid(self, form):
         # Explicitly save the form
@@ -60,7 +69,6 @@ class ProfileUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
         messages.success(self.request, "Your profile was updated successfully!")
 
         # Refresh user session after form save
-        from django.contrib.auth import login
         login(self.request, self.request.user)
 
         # Redirect to the updated user's profile page

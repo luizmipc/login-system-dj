@@ -70,18 +70,66 @@ class CustomUserCreationForm(forms.ModelForm):
             user.save()
         return user
 
-class CustomUserChangeForm(forms.ModelForm):
-    password = ReadOnlyPasswordHashField()
+class CustomUserUpdateForm(forms.ModelForm):
+    username = forms.CharField(
+        widget=forms.TextInput,
+        required=True,
+        max_length=30,
+    )
+
+    password = ReadOnlyPasswordHashField(
+        label="Password",
+        help_text="You cannot change the password here. Use the password reset option instead."
+    )
+
     date_of_birth = forms.DateField(
-        widget=forms.DateInput(attrs={
-            "type": "date"
-        }),
+        widget=forms.DateInput(attrs={"type": "date"}),
         label="Birthday",
         help_text="Format: mm/dd/YY"
     )
+
     class Meta:
-        model =CustomUser
-        fields = ["username", "email", "password", "date_of_birth", "is_active", "is_admin"]
+        model = CustomUser
+        fields = ["username", "email", "date_of_birth"]
+
+    def __init__(self, *args, **kwargs):
+        # Capture the current user's ID for uniqueness checks, if passed in kwargs
+        self.user_id = kwargs.pop("user_id", None)
+        super().__init__(*args, **kwargs)
+
+    def clean_username(self):
+        username = self.cleaned_data.get("username")
+
+        # If user_id is provided, perform exclusion check for uniqueness
+        if self.user_id:
+            if CustomUser.objects.filter(username=username).exclude(pk=self.user_id).exists():
+                raise ValidationError("Username already exists.")
+
+        if len(username) < 5:
+            raise ValidationError("Username too short. It must be at least 5 characters.")
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+
+        # If user_id is provided, perform exclusion check for uniqueness
+        if self.user_id:
+            if CustomUser.objects.filter(email=email).exclude(pk=self.user_id).exists():
+                raise ValidationError("Email already exists.")
+
+        return email
+
+    def clean_date_of_birth(self):
+        date_of_birth = self.cleaned_data.get("date_of_birth")
+        if date_of_birth > timezone.now().date():
+            raise ValidationError("Birthday cannot be in the future.")
+        return date_of_birth
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+        return user
 
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.CharField(
