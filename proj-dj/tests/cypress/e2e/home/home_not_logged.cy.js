@@ -8,6 +8,7 @@ describe('Home app tests not logged in', () => {
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/accounts/login/');
     });
+    cy.get('form[name="login"]').should('exist');
   });
 
   it('should load the page signup page successfully', () => {
@@ -15,6 +16,7 @@ describe('Home app tests not logged in', () => {
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/accounts/signup/');
     });
+    cy.get('form[name="signup"]').should('exist');
   });
 
   it('should load the home page successfully', () => {
