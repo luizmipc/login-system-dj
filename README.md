@@ -1,4 +1,7 @@
 # Login System in Django
+The current project is nearly complete, with user CRUD operations and authentication features fully implemented. However, there's still room to enhance the permissions system for better control over page access.
+
+Looking ahead, my next goal is to start a new project focused on integrating social authentication, allowing users to log in using popular platforms like LinkedIn, GitHub, Google, and others.
 
 
 ## Resources
