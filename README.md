@@ -25,12 +25,5 @@ To make the navbar
 - https://getbootstrap.com/docs/5.3/examples/offcanvas-navbar/
 
 ## Current challenge
-I want to create a login system where users can belong to different groups, have different fields, and have different permissions.
 - To solve:
-- Create a Custom User using AbstractBaseUser
-* Create groups of users.
-- Create permissions for those groups
-- Create proxy models that represent the groups of users.
-* https://stackoverflow.com/questions/55263412/django-registering-two-different-types-of-users-with-different-fields
-* https://stackoverflow.com/questions/65795812/is-it-possible-in-django-to-have-2-different-types-of-users-with-theirs-own-logi
-* https://docs.djangoproject.com/en/5.1/topics/auth/customizing/#specifying-a-custom-user-model
+- The assign and deassign of permissions is not working properly.
