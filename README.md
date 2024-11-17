@@ -23,7 +23,3 @@ To make the footer stay at the bottom
 
 To make the navbar 
 - https://getbootstrap.com/docs/5.3/examples/offcanvas-navbar/
-
-## Current challenge
-- To solve:
-- The assign and deassign of permissions is not working properly.
