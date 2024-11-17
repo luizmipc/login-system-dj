@@ -16,7 +16,7 @@ To not track files in git
 To create the Django Custom User Model
 - [Django Custom User Model - LearnDjango](https://learndjango.com/tutorials/django-custom-user-model)
 
-- To validate phonenumbers
+- To validate phone numbers
 - https://github.com/google/libphonenumber
 
 I learned how complex is to normalize the address class.
@@ -25,5 +25,5 @@ I learned how complex is to normalize the address class.
 To make the footer stay at the bottom
 - https://stackoverflow.com/questions/75360163/vertical-align-a-footer-to-the-bottom-of-the-page-bootstrap-5
 
-To make the navbar 
+To make the navbar
 - https://getbootstrap.com/docs/5.3/examples/offcanvas-navbar/
