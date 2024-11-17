@@ -16,7 +16,7 @@ To not track files in git
 To create the Django Custom User Model
 - [Django Custom User Model - LearnDjango](https://learndjango.com/tutorials/django-custom-user-model)
 
-- To future validate phonenumbers
+- To validate phonenumbers
 - https://github.com/google/libphonenumber
 
 I learned how complex is to normalize the address class.
