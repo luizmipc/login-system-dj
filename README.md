@@ -6,6 +6,20 @@
 ## State of project
 The project is completed, with user CRUD operations and authentication features fully implemented.
 
+## To run
+1. **Clone the repository**: Use the repository URL to clone it to your local machine.
+```bash
+> git clone <repository-url>
+```
+2. **Navigate to the project directory**: Open a terminal and change the directory to where the project is located.
+```bash
+> cd <project-directory>
+```
+3. **Build and start the Docker containers**: Run the following command to build and launch the application using Docker Compose:
+```bash
+> docker compose up --build
+```
+
 ## References
 To create the Django Custom User Model
 - [Django Custom User Model - LearnDjango](https://learndjango.com/tutorials/django-custom-user-model)
