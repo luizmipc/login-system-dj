@@ -4,9 +4,7 @@
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 ## State of project
-The current project is nearly complete, with user CRUD operations and authentication features fully implemented. However, there's still room to enhance the permissions system for better control over page access.
-
-Looking ahead, my next goal is to start a new project focused on integrating social authentication, allowing users to log in using popular platforms like LinkedIn, GitHub, Google, and others.
+The current project is completed, with user CRUD operations and authentication features fully implemented.
 
 ## Resources
 To not track files in git
