@@ -6,10 +6,6 @@
 ## State of project
 The project is completed, with user CRUD operations and authentication features fully implemented.
 
-## Resources
-To not track files in git
-- https://www.toptal.com/developers/gitignore
-
 ## References
 To create the Django Custom User Model
 - [Django Custom User Model - LearnDjango](https://learndjango.com/tutorials/django-custom-user-model)
@@ -19,3 +15,6 @@ To make the footer stay at the bottom
 
 To make the navbar
 - https://getbootstrap.com/docs/5.3/examples/offcanvas-navbar/
+
+To not track files in git
+- https://www.toptal.com/developers/gitignore
