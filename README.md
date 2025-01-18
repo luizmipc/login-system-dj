@@ -4,7 +4,7 @@
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 ## State of project
-The project is completed, with user CRUD operations and authentication features fully implemented.
+Secured and complete Login System in Django with Cypress tests.
 
 ## To run
 1. **Clone the repository**: Use the repository URL to clone it to your local machine.
